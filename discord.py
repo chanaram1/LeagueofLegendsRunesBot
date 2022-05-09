@@ -24,7 +24,8 @@ def removelist(page, runes):  # removes the list and puts it in a string
         str = str + ' \n ' + rune
 
     query = str
-    stopwords = ['The', 'Rune', 'Shard', 'Keystone']  # removing these words
+    stopwords = ['The', 'Rune', 'Shard', 'Keystone',
+                 "Summoner", "Spell"]  # removing these words
     querywords = query.split()
 
     # removes the words from the string
@@ -101,12 +102,22 @@ def removelist(page, runes):  # removes the list and puts it in a string
         ("Scaling CDR", "<:cooldown:972600670458875924>"),
         ("Magic Resist", "<:magicresist:972600670270132224>"),
         ("Scaling Bonus Health", "<:health:972600670261739660>"),
-
+        ("Ghost", "<:Ghost:973222026347151420>"),
+        ("Mark", "<:Mark:973221975021486151>"),
+        ("Flash", "<:Flash:973221975537352744>"),
+        ("Exhaust", "<:Exhaust:973222026011623475>"),
+        ("Ignite", "<:Ignite:973222026355540008>"),
+        ("Teleport", "<:Teleport:973222026502373386>"),
+        ("Barrier", "<:Barrier:973222026644959313>"),
+        ("Smite", "<:Smite:973222224108593183>"),
+        ("Clarity", "<:Clarity:973222615797862501>"),
+        ("Cleanse", "<:Cleanse:973222622072557598>"),
+        ("Heal", "<:Heal:973222627818762280>")
     ]
     for word, emoji in l:
         result = result.replace(word, emoji)
 
-    return (page + ": \n" + result)
+    return (page + " \n" + result)
 
 
 def runes(link):
@@ -134,29 +145,40 @@ def runes(link):
     return champ1.getRunes()
 
 
+def summoners(link):
+    html_text = requests.get(link).text
+    soup = BeautifulSoup(html_text, 'lxml')
+
+    sumspells = [i['alt'] for i in soup.find_all(
+        class_='content-section_content summoner-spells')[0].find_all('img')]
+    sumspells = removelist('', sumspells)
+    return sumspells
+
+
 @bot.command
 @lightbulb.option('champion', 'champion name')
 @lightbulb.command("rift", "Runes for rift")
 @lightbulb.implements(lightbulb.SlashCommand)
 async def embed_rift(ctx: lightbulb.SlashContext) -> None:
     champion = ctx.options.champion.capitalize()
+    link = 'https://u.gg/lol/champions/' + champion + '/build'
     embed = hikari.Embed(
         title="Chanaram Bot",
         description="Highest win rate runes for " + champion,
         colour='#2ECC71',
-        url='https://u.gg/lol/champions/' + champion + '/build')
-    embed.add_field("Runes", runes(
-        link='https://u.gg/lol/champions/' + champion + '/build'))
+        url=link)
+    embed.add_field("Runes", runes(link))
+    embed.add_field("Summoner Spells", summoners(link))
     embed.set_thumbnail(
         "http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/" + champion + ".png")
     embed.set_footer("Runes brought to you by Chanaram")
     await ctx.respond(embed)
 
 
-@bot.command
-@lightbulb.option('champion', 'champion name')
-@lightbulb.command("aram", "Runes for aram")
-@lightbulb.implements(lightbulb.SlashCommand)
+@ bot.command
+@ lightbulb.option('champion', 'champion name')
+@ lightbulb.command("aram", "Runes for aram")
+@ lightbulb.implements(lightbulb.SlashCommand)
 async def embed_aram(ctx: lightbulb.SlashContext) -> None:
     champion = ctx.options.champion.capitalize()
     link = 'https://u.gg/lol/champions/aram/' + champion + '-aram'
@@ -166,6 +188,7 @@ async def embed_aram(ctx: lightbulb.SlashContext) -> None:
         colour='#3498DB',
         url='https://u.gg/lol/champions/aram/' + champion + '-aram')
     embed.add_field("Runes", runes(link))
+    embed.add_field("Summoner Spells", summoners(link))
     embed.set_thumbnail(
         "http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/" + champion + ".png")
     embed.set_footer("Runes brought to you by Chanaram")
