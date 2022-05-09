@@ -9,10 +9,9 @@ https://www.w3schools.com/python/python_classes.asp
 https://stackoverflow.com/questions/51982806/how-do-i-make-my-discord-py-bot-use-custom-emoji
 https://stackoverflow.com/questions/68753236/how-to-replace-multiple-words-in-a-line-with-another-words
 https://hikari-lightbulb.readthedocs.io/en/latest/hikari_basics/embeds.html
+https://stackoverflow.com/questions/67491916/beautifulsoup4-how-to-get-alt-text-from-img-inside-div
+https://lol-champion-db.herokuapp.com/champions 
 
 
-https://lol-champion-db.herokuapp.com/champions using this for images
 
-
-
-![image](https://user-images.githubusercontent.com/86901520/167278708-51a0f91f-82c8-4846-a5be-8704b94ac2d7.png)
+![image](https://user-images.githubusercontent.com/86901520/167428606-320094e6-44aa-4910-9333-6fbfc10facc6.png)
