@@ -14,4 +14,5 @@ https://lol-champion-db.herokuapp.com/champions
 
 
 
-![image](https://user-images.githubusercontent.com/86901520/167428606-320094e6-44aa-4910-9333-6fbfc10facc6.png)
+![image](https://user-images.githubusercontent.com/86901520/168148487-896a9f41-db6f-4d7b-8fc2-1e332efffb12.png)
+
