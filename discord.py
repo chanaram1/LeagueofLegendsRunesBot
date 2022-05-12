@@ -4,7 +4,7 @@ import requests
 import hikari
 bot = lightbulb.BotApp(
     token='',
-    default_enabled_guilds=971049013203845150
+    default_enabled_guilds=
 )
 
 
@@ -116,6 +116,9 @@ def removelist(page, runes):  # removes the list and puts it in a string
     ]
     for word, emoji in l:
         result = result.replace(word, emoji)
+
+    result = result.split()
+    result = ' > '.join(result)
 
     return (page + " \n" + result)
 
